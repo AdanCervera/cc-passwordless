@@ -1,7 +1,9 @@
-﻿namespace CC.Passwordless.API.Persistence.Abstractions
+﻿using CC.Passwordless.API.Models.Response;
+
+namespace CC.Passwordless.API.Persistence.Abstractions
 {
     public interface IAuthenticationRepository
     {
-        Task<bool> Login(string email);
+        Task<AuthenticationResponse<bool>> Login(string email);
     }
 }
