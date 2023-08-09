@@ -1,15 +1,14 @@
 ﻿namespace CC.Passwordless.Utils.Notifications;
 
+using CC.Passwordless.API.Utils.Notifications;
 using CC.Passwordless.Exceptions.Authentication;
-using System;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
-public static class EmailUtility
+public class EmailService: IEmailService
 {
   
-    public static void SendEmail(string fromEmail, string pssEmail, string toEmail, string subject, string htmlBody, Dictionary<string, string> replacements = null)
+    public void SendEmail(string fromEmail, string pssEmail, string toEmail, string subject, string htmlBody, Dictionary<string, string> replacements = null)
     {
        string _fromEmail = fromEmail;
        string _password = pssEmail;
