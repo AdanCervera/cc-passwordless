@@ -15,8 +15,8 @@ namespace CC.PasswordLess.UnitTest.Services
             var mockRepository = new Mock<IUserRepository>();
             var mockConfiguration = new Mock<IConfiguration>();
             mockConfiguration.Setup(c => c["Jwt:SecretKey"]).Returns("MiClaveSecretaHiperSeguraDe128Bits");
-            mockConfiguration.Setup(c => c["Email:ApplicationEmailPassword"]).Returns("geynmiiagobfkmon");
-            mockConfiguration.Setup(c => c["Email:EmailFrom"]).Returns("adan.cervera@gmail.com");
+            mockConfiguration.Setup(c => c["Email:ApplicationEmailPassword"]).Returns("geynmiiagobfkm9n");
+            mockConfiguration.Setup(c => c["Email:EmailFrom"]).Returns("valid@gmail.com");
 
             var emailService = new Mock<IEmailService>();
             emailService.Setup(c => c.SendEmail(
