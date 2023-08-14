@@ -9,7 +9,11 @@ namespace CC.Passwordless.Utils.General
     {
         public static string GenerateJwtToken(string name, string email, IConfiguration _configuration)
         {
-            string SecretKey = _configuration["Jwt:SecretKey"];
+            var SecretKey = _configuration["Jwt:SecretKey"];
+            if (string.IsNullOrEmpty(SecretKey))
+            {
+                throw new InvalidOperationException("Jwt:SecretKey is not configured.");
+            }
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(SecretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
