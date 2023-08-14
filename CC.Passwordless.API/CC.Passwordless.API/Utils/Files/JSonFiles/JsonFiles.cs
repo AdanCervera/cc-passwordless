@@ -1,5 +1,4 @@
-﻿using CC.Passwordless.API.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace CC.Passwordless.API.Utils.Files.JSonFiles
 {

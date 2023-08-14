@@ -2,11 +2,6 @@
 using CC.Passwordless.API.Persistence.Implementation;
 using CC.Passwordless.API.Utils.Files.JSonFiles;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CC.PasswordLess.UnitTest.Persistence
 {

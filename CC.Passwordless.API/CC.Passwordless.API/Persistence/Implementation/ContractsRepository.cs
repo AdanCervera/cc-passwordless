@@ -1,8 +1,6 @@
 ﻿using CC.Passwordless.API.Models;
 using CC.Passwordless.API.Persistence.Abstractions;
 using CC.Passwordless.API.Utils.Files.JSonFiles;
-using CC.Passwordless.Exceptions.Authentication;
-using CC.Passwordless.Utils.Files;
 
 namespace CC.Passwordless.API.Persistence.Implementation
 {

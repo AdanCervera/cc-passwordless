@@ -3,11 +3,6 @@ using CC.Passwordless.API.Models;
 using CC.Passwordless.API.Persistence.Abstractions;
 using CC.Passwordless.API.Services.Implementation;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CC.PasswordLess.UnitTest.Services
 {

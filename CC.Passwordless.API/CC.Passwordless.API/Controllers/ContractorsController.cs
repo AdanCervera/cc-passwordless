@@ -1,8 +1,6 @@
 ﻿using CC.Passwordless.API.Exceptions.Authentication;
-using CC.Passwordless.API.Models;
 using CC.Passwordless.API.Services.Abstractions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CC.Passwordless.API.Controllers
