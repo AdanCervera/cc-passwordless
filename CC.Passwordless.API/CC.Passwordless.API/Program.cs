@@ -2,6 +2,7 @@ using CC.Passwordless.API.Persistence.Abstractions;
 using CC.Passwordless.API.Persistence.Implementation;
 using CC.Passwordless.API.Services.Abstractions;
 using CC.Passwordless.API.Services.Implementation;
+using CC.Passwordless.API.Utils.Files.JSonFiles;
 using CC.Passwordless.API.Utils.Notifications;
 using CC.Passwordless.Utils.Notifications;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +16,9 @@ var configuration = builder.Configuration;
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IContractsService, ContractsService>();
+builder.Services.AddScoped<IContractsRepository, ContractsRepository>();
+builder.Services.AddScoped(typeof(IJsonFiles<>), typeof(JsonFiles<>));
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddCors(options =>
@@ -28,14 +32,20 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        var secretKey = configuration["Jwt:SecretKey"];
+        if (string.IsNullOrEmpty(secretKey))
+        {
+            throw new InvalidOperationException("Jwt:SecretKey is not configured.");
+        }
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://localhost:7105", 
+            ValidIssuer = "https://localhost:7105",
             ValidAudience = "http://localhost:4200",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
         };
     });
 

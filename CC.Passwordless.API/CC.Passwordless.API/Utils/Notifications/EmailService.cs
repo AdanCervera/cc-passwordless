@@ -8,7 +8,7 @@ using System.Net.Mail;
 public class EmailService: IEmailService
 {
   
-    public void SendEmail(string fromEmail, string pssEmail, string toEmail, string subject, string htmlBody, Dictionary<string, string> replacements = null)
+    public void SendEmail(string fromEmail, string pssEmail, string toEmail, string subject, string htmlBody, Dictionary<string, string> replacements)
     {
        string _fromEmail = fromEmail;
        string _password = pssEmail;
@@ -22,21 +22,17 @@ public class EmailService: IEmailService
                 }
             }
 
-            using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
-            {
-                smtpClient.EnableSsl = true;
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential(_fromEmail, _password);
+            using SmtpClient smtpClient = new("smtp.gmail.com", 587);
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(_fromEmail, _password);
 
-                using (MailMessage mailMessage = new MailMessage(_fromEmail, toEmail, subject, string.Empty))
-                {
-                    mailMessage.IsBodyHtml = true;
-                    mailMessage.Body = htmlBody;
+            using MailMessage mailMessage = new(_fromEmail, toEmail, subject, string.Empty);
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = htmlBody;
 
-                    smtpClient.Send(mailMessage);
-                }
-            }
-            
+            smtpClient.Send(mailMessage);
+
         }
         catch
         {
