@@ -1,18 +1,34 @@
 ﻿using CC.Passwordless.API.Models;
 using CC.Passwordless.API.Persistence.Abstractions;
+using CC.Passwordless.API.Utils.Files.JSonFiles;
 using CC.Passwordless.Exceptions.Authentication;
-using CC.Passwordless.Utils.Files;
 
 namespace CC.Passwordless.API.Persistence.Implementation
 {
     public class UserRepository : IUserRepository
     {
+        private readonly IJsonFiles<EmailData> _emailFiles;
         private const string path = @"Dummy\data-dummy.json";
-        public async Task<bool> isEmailExists(string email)
+
+        public UserRepository(IJsonFiles<EmailData> emailFiles)
         {
-           EmailData emails = await new JsonFiles().ReadFileToObject(path);
-           return (bool)(email != null ? (emails?.Emails?.Contains(email)) : throw new NoEmailFoundException("This user is not registered.")); 
+            _emailFiles = emailFiles;
         }
+
+        public async Task<bool> IsEmailExists(string? email)
+        {
+            EmailData emails = await _emailFiles.ReadFileToObject(path);
+
+            if (email != null && emails?.Emails != null)
+            {
+                return emails.Emails.Contains(email);
+            }
+            else
+            {
+                throw new NoEmailFoundException("This user is not registered.");
+            }
+        }
+
 
     }
 }

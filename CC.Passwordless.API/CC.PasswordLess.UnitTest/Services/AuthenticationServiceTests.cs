@@ -30,7 +30,7 @@ namespace CC.PasswordLess.UnitTest.Services
             var authenticationService = new AuthenticationService(mockRepository.Object, mockConfiguration.Object, emailService.Object);
 
             var email = "valid@gmail.com";
-            mockRepository.Setup(repo => repo.isEmailExists(email)).ReturnsAsync(true);
+            mockRepository.Setup(repo => repo.IsEmailExists(email)).ReturnsAsync(true);
 
             // Act
             var result = await authenticationService.Login(email);
@@ -59,7 +59,7 @@ namespace CC.PasswordLess.UnitTest.Services
             var authenticationService = new AuthenticationService(mockRepository.Object, mockConfiguration.Object, emailService.Object);
 
             var email = "invalid@gmail.com";
-            mockRepository.Setup(repo => repo.isEmailExists(email)).ReturnsAsync(false);
+            mockRepository.Setup(repo => repo.IsEmailExists(email)).ReturnsAsync(false);
 
             // Act
             var result = await authenticationService.Login(email);
@@ -88,7 +88,7 @@ namespace CC.PasswordLess.UnitTest.Services
             var authenticationService = new AuthenticationService(mockRepository.Object, mockConfiguration.Object, emailService.Object);
 
             var email = "test@gmail.com";
-            mockRepository.Setup(repo => repo.isEmailExists(email)).ThrowsAsync(new Exception("Some error."));
+            mockRepository.Setup(repo => repo.IsEmailExists(email)).ThrowsAsync(new Exception("Some error."));
 
             // Act
             var result = await authenticationService.Login(email);

@@ -25,7 +25,7 @@ namespace CC.Passwordless.API.Services.Implementation
             var authenticationResponse = new AuthenticationResponse<bool>();
             try
             {
-                var isEmailExists = await _repository.isEmailExists(email);
+                var isEmailExists = await _repository.IsEmailExists(email);
                 if (isEmailExists)
                 {
                     SendEmail(email);
@@ -48,15 +48,15 @@ namespace CC.Passwordless.API.Services.Implementation
 
         private void SendEmail(string email)
         {
-            string emailFrom = _configuration["Email:EmailFrom"];
-            string emailpass = _configuration["Email:ApplicationEmailPassword"];
-            Dictionary<string, string> data = new Dictionary<string, string>()
+            string emailFrom = _configuration["Email:EmailFrom"] ?? throw new InvalidOperationException("EmailFrom configuration is missing.");
+            string emailpass = _configuration["Email:ApplicationEmailPassword"] ?? throw new InvalidOperationException("ApplicationEmailPassword configuration is missing.");
+            Dictionary<string, string> data = new ()
                     {
                         { "Email", email},
                         { "Token",AuthenticationTokenGenerator.GenerateJwtToken(email, email, _configuration)}
                     };
 
-            _emailService.SendEmail(emailFrom, emailpass, email, "Inicio de Session", HtmlFiles.LoadHtmlFromFile(EmailMagicLinkpath), data);
+            _emailService.SendEmail(emailFrom, emailpass, email, "Inicio de Session", HtmlFiles.LoadHtmlFromFile(EmailMagicLinkpath)?? String.Empty, data);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public static class HtmlFiles
     {
-        public static string LoadHtmlFromFile(string filePath)
+        public static string? LoadHtmlFromFile(string filePath)
         {
             try
             {
@@ -12,16 +12,15 @@
                 }
 
                 string htmlContent;
-                using (StreamReader reader = new StreamReader(filePath))
+                using (StreamReader reader = new (filePath))
                 {
                     htmlContent = reader.ReadToEnd();
                 }
 
                 return htmlContent;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Error: {ex.Message}");
                 return null;
             }
         }

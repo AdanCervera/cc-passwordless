@@ -2,6 +2,6 @@
 {
     public interface IUserRepository
     {
-        Task<bool> isEmailExists(string email);
+        Task<bool> IsEmailExists(string? email);
     }
 }
